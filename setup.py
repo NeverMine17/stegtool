@@ -9,5 +9,5 @@ setup(
     author='NeverMine17',
     author_email='dannevergame@gmail.com',
     description='',
-    install_requires=['bitstring', 'Pillow', 'unireedsolomon']
+    install_requires=['bitstring', 'Pillow', 'unireedsolomon', 'coloredlogs', 'click']
 )

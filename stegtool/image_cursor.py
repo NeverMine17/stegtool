@@ -1,26 +1,32 @@
+import logging
+
 from PIL.Image import Image
 from bitstring import *
 
+logger = logging.getLogger('stegtool')
+
 
 class ImageCursor:
-    def __init__(self, image: Image, bits_to_write: int):
+    def __init__(self, image: Image):
         self.channel_num = 2
         self.curr_x = 0
         self.curr_y = 0
         self.image = image
         self.curr_bit = 1
         self.already_wrote = 0
-        self.bits_per_channel = bits_to_write
+
+    @property
+    def bits_available(self):
+        return self.image.size[0] * self.image.size[1] - self.already_wrote
 
     def iterate(self):
         self.curr_x += 1
-        if self.curr_y == self.image.size[1]:
+        if self.curr_x == self.image.size[0] - 1:
             self.curr_x = 0
             self.curr_y += 1
-            if self.bits_per_channel == self.curr_bit:
-                self.curr_bit = 1
-            else:
-                self.curr_bit += 1
+        self.already_wrote += 1
+        if (self.bits_available % 200) == 0:
+            logger.debug('Bits available: {0}'.format(self.bits_available))
 
     def write_at(self, x, y, bit: bool):
         before = self.image.getpixel((x, y))
