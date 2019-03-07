@@ -8,6 +8,7 @@ from stegtool.image_writer import ImageWriter
 
 class ImageWriterTest(unittest.TestCase):
     def test_normal(self):
+        """Normal use case"""
         img = pillow_open(path.join('data_examples', 'input.png'))
         imgwrt = ImageWriter(img)
         imgwrt.write(b'123testing123')

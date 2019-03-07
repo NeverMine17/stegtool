@@ -40,7 +40,6 @@ class ImageWriter:
     def read(self):
         logger.info('Starting to decode data')
         header = self.cursor.read(16)
-        print(repr(header))
         header_val = int.from_bytes(bytes(self.ecc(16, 8).decode_fast(header, return_string=False)[0]), 'little',
                                     signed=False)
 

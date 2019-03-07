@@ -21,7 +21,7 @@ class ImageCursor:
 
     def iterate(self):
         self.curr_x += 1
-        if self.curr_x == self.image.size[0] - 1:
+        if self.curr_x == self.image.size[0]:
             self.curr_x = 0
             self.curr_y += 1
         self.already_wrote += 1
